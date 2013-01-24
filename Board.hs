@@ -2,7 +2,7 @@ module Board where
 import Data.Char
 
 emptyBoard :: [Char]
-emptyBoard = ['1','2','3','4','5','6','7','8','9']
+emptyBoard = "123456789"
 
 availableSpaces board = filter isDigit board
 
