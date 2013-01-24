@@ -1,3 +1,5 @@
+module BoardSpec where
+
 import Test.Hspec
 import Test.QuickCheck
 import Board
@@ -6,7 +8,10 @@ blankBoard = ["1","2","3","4","5","6","7","8","9"]
 fullBoard = ["x","o","x","x","o","x","o","x","o"]
 
 main :: IO ()
-main = hspec $ do
+main = hspec spec
+
+spec :: Spec
+spec = do
   describe "Board" $ do
     it "returns an empty board" $ do
       emptyBoard `shouldBe` ["1","2","3","4","5","6","7","8","9"]
