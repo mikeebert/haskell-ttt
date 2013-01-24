@@ -14,6 +14,7 @@ swap spaceAndPiece boardSpace = if boardSpace == fst spaceAndPiece
                                   else boardSpace
 
 isNotPiece a = a /= "x" && a /= "o"
+{-isPiece a = a == "x" || a == "o"-}
 
 full board = any isNotPiece board == False
 
