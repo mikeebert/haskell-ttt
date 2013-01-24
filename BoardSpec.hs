@@ -34,16 +34,25 @@ main = hspec $ do
     it "#full returns False for an empty board" $ do
       full emptyBoard `shouldBe` False
 
-    {-it "returns winner for horizontal win in first row" $ do-}
-      {-winner ["x","x","x","4","5","6","7","8","9"] -}
-        {-`shouldBe` "x"-}
+    it "splits board into rows" $ do
+      rows emptyBoard `shouldBe` [["1","2","3"],["4","5","6"],["7","8","9"]]
 
-    {-it "returns winner for horizontal win in second row" $ do-}
-      {-winner "123xxx789" `shouldBe` "x"-}
+    it "splits board into columns" $ do
+      columns emptyBoard `shouldBe` [["1","4","7"],["2","5","8"],["3","6","9"]]
 
-    {-it "returns winner for horizontal win in final row" $ do-}
-      {-winner "123456xxx" `shouldBe` "x"-}
+    it "returns winner for horizontal wins" $ do
+      winner ["x","x","x","4","5","6","7","8","9"] `shouldBe` "x"
+      winner ["1","2","3","x","x","x","7","8","9"] `shouldBe` "x"
+      winner ["1","2","3","4","5","6","x","x","x"] `shouldBe` "x"
 
-    {-it "returns nil for no winner" $ do-}
-      {-winner blankBoard `shouldBe` "0"-}
-    
+    it "returns winner for column wins" $ do
+      winner ["x","2","3","x","5","6","x","8","9"] `shouldBe` "x"
+      winner ["1","x","3","4","x","6","7","x","9"] `shouldBe` "x"
+      winner ["1","2","x","4","5","x","7","8","x"] `shouldBe` "x"
+
+    it "returns winner for diagonal wins" $ do
+      winner ["1","2","x","4","x","6","x","8","9"] `shouldBe` "x"
+      winner ["x","2","3","4","x","6","7","8","x"] `shouldBe` "x"
+
+    it "returns null list for no winner" $ do
+      null (winner emptyBoard) `shouldBe` True  
