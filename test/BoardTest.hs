@@ -1,4 +1,4 @@
-module BoardSpec where
+module BoardTest where
 
 import Test.Hspec
 import Test.QuickCheck

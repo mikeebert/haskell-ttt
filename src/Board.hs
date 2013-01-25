@@ -22,16 +22,17 @@ winner board | haveWinner (rows board)      = matchingSymbol (rows board)
 
 haveWinner rowsOrColumns = any allEqual rowsOrColumns
 
+matchingSymbol :: [[String]] -> String
 matchingSymbol rowsOrColumns = head (head (filter allEqual $ rowsOrColumns))
 
 allEqual list = length list == (length $ takeWhile (== head list) list)
 
 isPiece a = a == "x" || a == "o"
 
-diagonals board = [[board!!0,board!!4,board!!8],[board!!2,board!!4,board!!6]]
-
 rows board = [(take 3 board),(take 3 (drop 3 board)),(drop 6 board)]
 
 columns board = [[(board!!0),(board!!3),(board!!6)],
                  [(board!!1),(board!!4),(board!!7)],
                  [(board!!2),(board!!5),(board!!8)]]
+
+diagonals board = [[board!!0,board!!4,board!!8],[board!!2,board!!4,board!!6]]
