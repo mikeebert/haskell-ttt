@@ -3,4 +3,4 @@ import qualified BoardSpec
 
 main :: IO ()
 main = hspec $ do
-  describe "Board" BoardSpec.spec
+  describe "Board Specs" BoardSpec.spec

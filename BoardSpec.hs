@@ -39,10 +39,10 @@ spec = do
     it "#full returns False for an empty board" $ do
       full emptyBoard `shouldBe` False
 
-    it "splits board into rows" $ do
+    it "returns board rows" $ do
       rows emptyBoard `shouldBe` [["1","2","3"],["4","5","6"],["7","8","9"]]
 
-    it "splits board into columns" $ do
+    it "returns board columns" $ do
       columns emptyBoard `shouldBe` [["1","4","7"],["2","5","8"],["3","6","9"]]
 
     it "returns winner for horizontal wins" $ do
