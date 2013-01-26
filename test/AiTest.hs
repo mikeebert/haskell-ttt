@@ -16,8 +16,8 @@ drawGameBoard = ["x","o","x",
                  "x","o","x",
                  "o","x","o"]
 
-minOplayer = Player {piece = "o", strategy = "min", startingScore = 5}
 maxXplayer = Player {piece = "x", strategy = "max", startingScore = -5}
+minOplayer = Player {piece = "o", strategy = "min", startingScore = 5}
 
 spec :: Spec
 spec = do
@@ -55,13 +55,28 @@ spec = do
     it "scores a tie game as 0" $ do
       minimaxScore maxXplayer minOplayer 8 drawGameBoard `shouldBe` 0
 
+    it "scores a negative score if winning move left open for opponent" $ do
+      minimaxScore maxXplayer minOplayer 1 ["o","o","3","x","x","o","x","o","x"] `shouldBe` -98
+
     it "chooses a win in one move" $ do
       getAiMove ["x","x","3","4","5","6","7","8","9"] maxXplayer minOplayer 
         `shouldBe` "3"
+
+    {-it "ranks potential wins, losses and draws" $ do-}
+      {-map (minimaxScore maxXplayer minOplayer 1)  -}
+          {-(map (makeMove ["x","x","3","o","5","o","o","o","9"] (piece maxXplayer))-}
+               {-(availableSpaces ["x","x","3","o","5","x","o","o","9"]))-}
+      {-`shouldBe` [99,-98,-98]-}
 
     it "chooses the center for second move if opponent chooses corner" $ do
       getAiMove ["o","2","3","4","5","6","7","8","9"] maxXplayer minOplayer 
         `shouldBe` "5"
 
-listIncludes n list = length (filter (== n) list) >= 1
+    it "blocks L setup" $ do
+      moveIsInList (getAiMove ["o","2","3",
+                               "4","x","6",
+                               "7","o","9"] maxXplayer minOplayer)
+        ["4","7","6","9"] `shouldBe` True
+
+moveIsInList n list = length (filter (== n) list) >= 1
 
