@@ -16,8 +16,8 @@ drawGameBoard = ["x","o","x",
                  "x","o","x",
                  "o","x","o"]
 
-maxXplayer = Player {piece = "x", strategy = "max", startingScore = -5}
-minOplayer = Player {piece = "o", strategy = "min", startingScore = 5}
+maxXplayer = Player {piece = "x", strategy = "max"}
+minOplayer = Player {piece = "o", strategy = "min"}
 
 spec :: Spec
 spec = do

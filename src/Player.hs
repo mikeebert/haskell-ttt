@@ -2,8 +2,7 @@ module Player where
 
 data Player = Player {
   strategy      :: String,
-  piece         :: String,
-  startingScore :: Integer
+  piece         :: String
   } deriving (Show)
 
 
