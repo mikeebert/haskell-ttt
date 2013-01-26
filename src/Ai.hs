@@ -12,7 +12,7 @@ getDumbMove list = head list
 value :: [String] -> Player -> Player -> Integer -> Integer
 value board player opponent depth | winner board == piece player      = 100 - depth
                                   | winner board == piece opponent    = -100 + depth
-                                  | draw board                        = 0
+                                  | tieGame board                        = 0
                                   | otherwise                         = -1
 
 

@@ -27,7 +27,10 @@ spec = do
     it "doesn't place a move in an occupied space" $ do
       placeMove ("2","x") fullBoard `shouldBe` fullBoard
 
-    it "returns a list of available spaces on empty board" $ do
+    it "returns available spaces" $ do
+      availableSpaces ["1","o","x","o","5","x","o","x","o"] `shouldBe` ["1","5"]
+
+    it "returns available spaces on empty board" $ do
       availableSpaces emptyBoard `shouldBe` ["1","2","3","4","5","6","7","8","9"]
 
     it "returns an empty list of available spaces on a full board" $ do
@@ -61,3 +64,9 @@ spec = do
 
     it "returns null list for no winner" $ do
       null (winner emptyBoard) `shouldBe` True  
+
+    it "#draw returns True for a full board with null winner" $ do
+      tieGame fullBoard `shouldBe` True
+
+    it "#draw returns for a won board" $ do
+      tieGame ["x","x","x","4","5","6","7","8","9"] `shouldBe` False
