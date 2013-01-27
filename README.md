@@ -1,6 +1,7 @@
 ##Tic Tac Toe in Haskell
 
-1. [Download and install Haskell](http://www.haskell.org/platform/) if you don't have it.
+1. Download and install [the Haskell
+   Platform](http://www.haskell.org/platform/) if you don't have it yet.
 
 ###Play Game
 From your terminal
