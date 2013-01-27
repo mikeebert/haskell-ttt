@@ -1,8 +1,10 @@
 module Player where
 
 data Player = Player {
-  strategy      :: String,
-  piece         :: String
+  piece         :: String,
+  kind          :: String
   } deriving (Show)
 
+setupPlayer symbol playerType = Player {piece = symbol,
+                                        kind = playerType}
 
