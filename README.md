@@ -13,6 +13,6 @@ runhaskell -isrc TicTacToe.hs
 - Install Hspec from the terminal: 'cabal update && cabal install hspec'
 - Type the following command in your terminal (from the project directory)
 ```
-'runhaskell -itest -isrc spec/SpecRunner.hs'
+runhaskell -itest -isrc spec/SpecRunner.hs
 ```
 

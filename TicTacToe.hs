@@ -1,4 +1,4 @@
-module Game where
+module TicTacToe where
 
 import ConsoleRunner
 
