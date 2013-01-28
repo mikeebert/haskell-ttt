@@ -22,53 +22,34 @@ start = do
       player2 = setupPlayer o (selectionFor player2type)
   gameLoop player1 player2 emptyBoard
 
-gameLoop player nextPlayer board = do
-  uiDisplay (formatted board)
-  if (kind player) == human
-    then humanMoveScenario player nextPlayer board
-    else aiMoveScenario player nextPlayer board
+gameLoop player nextPlayer board 
+  | isComputer player = do uiDisplay (formatted board)
+                           aiMoveScenario player nextPlayer board
+  | isHuman player    = do uiDisplay (formatted board)
+                           humanMoveScenario player nextPlayer board
 
-checkGameStatus player nextPlayer board = if gameOver board
-                                            then endOfGame board
-                                            else gameLoop nextPlayer player board
-{-THIS ALSO WORKS-}
-{-gameLoop player nextPlayer board | (kind player) == computer = do uiDisplay (formatted board)-}
-                                                                  {-aiMoveScenario player nextPlayer board-}
-                                 {-| (kind player) == human = do uiDisplay (formatted board)-}
-                                                               {-humanMoveScenario player nextPlayer board-}
-
-aiMoveScenario player nextPlayer board = let move = getAiMove board player nextPlayer
-                                             updatedBoard = placeMove (move, (piece player)) board
-                                         in checkGameStatus player nextPlayer updatedBoard
+aiMoveScenario player nextPlayer board = do
+  let move = getAiMove board player nextPlayer
+      updatedBoard = placeMove (move, (piece player)) board
+  checkGameStatus player nextPlayer updatedBoard
 
 humanMoveScenario player nextPlayer board = do
   move <- uiGetMove (availableSpaces board)
   let updatedBoard = placeMove (move, (piece player)) board
   checkGameStatus player nextPlayer updatedBoard
 
-
-{-THIS AND THE METHODS BELOW DO NOT WORK BECAUSE OF IO IMPURITY-}
-{-gameLoop player nextPlayer board = do-}
-  {-let move         = getNextMove player nextPlayer board-}
-      {-updatedBoard = placeMove (move, (piece player)) board-}
-  {-uiDisplay (formatted updatedBoard)-}
-  {-if gameOver updatedBoard-}
-    {-then endOfGame updatedBoard-}
-    {-else gameLoop nextPlayer player updatedBoard-}
-
-
-{-getNextMove :: Player -> Player -> [String] -> String-}
-{-getNextMove player nextPlayer board | (kind player) == computer = getAiMove board player nextPlayer-}
-                                    {-| (kind player) == human    = getHumanMove board-}
-
-{-getHumanMove board = uiGetMove (availableSpaces board)-}
-{-getHumanMove board = liftM (uiGetMove (availableSpaces board))-}
-
-gameOver board = full board || null (winner board) /= True
+checkGameStatus player nextPlayer board = if gameOver board
+                                            then endOfGame board
+                                            else gameLoop nextPlayer player board
 
 endOfGame board = do
   uiDisplay (formatted board)
-  putStrLn "Game over." 
+  uiGameOverMessage (winner board) 
+
+isComputer player = (kind player) == computer
+isHuman player    = (kind player) == human
+
+gameOver board = hasWinner board || full board 
 
 formatted :: [String] -> String
 formatted board = let rowsAsString = map concat (rows board)

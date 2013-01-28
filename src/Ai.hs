@@ -15,8 +15,7 @@ firstAvailableMove list = head list
 getAiMove :: [String] -> Player -> Player -> String
 getAiMove board player opponent = let maxPlayer = setupMax player
                                       minPlayer = setupMin opponent
-                                      scores = map (minimaxScore maxPlayer minPlayer 1) 
-                                                   (potentialMoves maxPlayer board)
+                                      scores = map (minimaxScore maxPlayer minPlayer 1) (potentialMoves maxPlayer board)
                                       moves = availableSpaces board
                                       valuesOfMoves = zip scores moves
                                   in bestMove valuesOfMoves

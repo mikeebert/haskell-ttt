@@ -21,4 +21,10 @@ uiGetMove availableMoves = do
 uiDisplay string =  do
   putStrLn string
 
+uiGameOverMessage winner = do
+  if null winner
+    then putStrLn "Tie Game. Game Over"
+    else putStrLn ("Game Over: " ++ winner ++ " wins!")
+
+
 
