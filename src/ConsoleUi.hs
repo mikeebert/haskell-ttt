@@ -1,6 +1,7 @@
 module ConsoleUi where
 
-uiGreet = putStrLn "Welcome to Tic Tac Toe"
+uiGreet = do
+  putStrLn "Welcome to Tic Tac Toe!"
 
 uiGetPlayer piece (computer, human) = do
   putStrLn ("Would you like player " ++ piece ++ " to be Human or Computer?")

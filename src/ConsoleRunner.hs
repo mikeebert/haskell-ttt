@@ -15,14 +15,41 @@ x = "x"
 o = "o"
 
 start = do
-  uiGreet
+  uiGreet 
   player1type <- uiGetPlayer x playerOptions
   player2type <- uiGetPlayer o playerOptions
-  let player1 = setupPlayer x player1type 
-      player2 = setupPlayer o player2type
-  putStrLn "got here"
-  {-gameLoop player1 player2 emptyBoard-}
+  let player1 = setupPlayer x (selectionFor player1type) 
+      player2 = setupPlayer o (selectionFor player2type)
+  putStrLn ("Player 1 is a " ++ (kind player1))
+  putStrLn ("Player 2 is a " ++ (kind player2))
+  gameLoop player1 player2 emptyBoard
 
+gameLoop player nextPlayer board = do
+  uiDisplay (formatted board)
+  if (kind player) == human
+    then humanMoveScenario player nextPlayer board
+    else aiMoveScenario player nextPlayer board
+
+{-THIS ALSO WORKS-}
+{-gameLoop player nextPlayer board | (kind player) == computer = do uiDisplay (formatted board)-}
+                                                                  {-aiMoveScenario player nextPlayer board-}
+                                 {-| (kind player) == human = do uiDisplay (formatted board)-}
+                                                               {-humanMoveScenario player nextPlayer board-}
+
+aiMoveScenario player nextPlayer board = let move = getAiMove board player nextPlayer
+                                             updatedBoard = placeMove (move, (piece player)) board
+                                         in if gameOver updatedBoard
+                                              then endOfGame updatedBoard
+                                              else gameLoop nextPlayer player updatedBoard
+
+humanMoveScenario player nextPlayer board = do
+  move <- uiGetMove (availableSpaces board)
+  let updatedBoard = placeMove (move, (piece player)) board
+  if gameOver updatedBoard
+     then endOfGame updatedBoard
+     else gameLoop nextPlayer player updatedBoard
+
+{-THIS AND THE METHODS BELOW DO NOT WORK BECAUSE OF IO IMPURITY-}
 {-gameLoop player nextPlayer board = do-}
   {-let move         = getNextMove player nextPlayer board-}
       {-updatedBoard = placeMove (move, (piece player)) board-}
@@ -41,11 +68,13 @@ start = do
 
 gameOver board = full board || null (winner board) /= True
 
-endOfGame board = putStrLn "Game over." 
+endOfGame board = do
+  uiDisplay (formatted board)
+  putStrLn "Game over." 
 
 formatted :: [String] -> String
 formatted board = let rowsAsString = map concat (rows board)
                   in unlines (map (intersperse ' ') rowsAsString)
 
-selectionFrom input | input == computerSelection = computer
-                    | input == humanSelection = human
+selectionFor input | input == computerSelection = computer
+                   | input == humanSelection = human
