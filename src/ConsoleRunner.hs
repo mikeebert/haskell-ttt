@@ -6,29 +6,31 @@ import Board
 import Ai
 import Data.List
 
-computer = "computer"
-human = "human"
+x = "X"
+o = "O"
+first = "first"
+second = "second"
 computerSelection = "1"
 humanSelection = "2"
 playerOptions = (computerSelection, humanSelection)
-x = "x"
-o = "o"
+playAgain = "yes"
 
 start = do
   uiGreet 
-  player1type <- uiGetPlayer x playerOptions
-  player2type <- uiGetPlayer o playerOptions
+  player1type <- uiGetPlayer first x playerOptions
+  player2type <- uiGetPlayer second o playerOptions
   let player1 = setupPlayer x (selectionFor player1type) 
       player2 = setupPlayer o (selectionFor player2type)
   gameLoop player1 player2 emptyBoard
 
 gameLoop player nextPlayer board 
-  | isComputer player = do uiDisplay (formatted board)
+  | isComputer player = do uiDisplayBoard (formatted board)
                            aiMoveScenario player nextPlayer board
-  | isHuman player    = do uiDisplay (formatted board)
+  | isHuman player    = do uiDisplayBoard (formatted board)
                            humanMoveScenario player nextPlayer board
 
 aiMoveScenario player nextPlayer board = do
+  uiDisplayComputerMoveMessage
   let move = getAiMove board player nextPlayer
       updatedBoard = placeMove (move, (piece player)) board
   checkGameStatus player nextPlayer updatedBoard
@@ -39,21 +41,27 @@ humanMoveScenario player nextPlayer board = do
   checkGameStatus player nextPlayer updatedBoard
 
 checkGameStatus player nextPlayer board = if gameOver board
-                                            then endOfGame board
+                                            then endOfGameScenario board
                                             else gameLoop nextPlayer player board
 
-endOfGame board = do
-  uiDisplay (formatted board)
+endOfGameScenario board = do
+  uiDisplayBoard (formatted board)
   uiGameOverMessage (winner board) 
+  askToPlayAgain
 
-isComputer player = (kind player) == computer
-isHuman player    = (kind player) == human
+askToPlayAgain = do 
+  choice <- uiAskToPlayAgain
+  if choice == playAgain
+    then start
+    else uiDisplayGoodbye
 
 gameOver board = hasWinner board || full board 
+
+selectionFor input | input == computerSelection = computer
+                   | input == humanSelection = human
 
 formatted :: [String] -> String
 formatted board = let rowsAsString = map concat (rows board)
                   in unlines (map (intersperse ' ') rowsAsString)
 
-selectionFor input | input == computerSelection = computer
-                   | input == humanSelection = human
+
