@@ -40,9 +40,10 @@ humanMoveScenario player nextPlayer board = do
   let updatedBoard = placeMove (move, (piece player)) board
   checkGameStatus player nextPlayer updatedBoard
 
-checkGameStatus player nextPlayer board = if gameOver board
-                                            then endOfGameScenario board
-                                            else gameLoop nextPlayer player board
+checkGameStatus player nextPlayer board = 
+  if gameOver board
+    then endOfGameScenario board
+    else gameLoop nextPlayer player board
 
 endOfGameScenario board = do
   uiDisplayBoard (formatted board)
