@@ -27,7 +27,9 @@ winningSymbol :: [[String]] -> String
 winningSymbol rowsOrColumns = head (head (filter allEqual rowsOrColumns))
 
 hasWinner board = null (winner board) == False
+
 tieGame board = null (winner board) && full board
+
 full board = null (availableSpaces board)
 
 allEqual list = length list == (length $ takeWhile (== head list) list)
