@@ -13,7 +13,7 @@ second = "second"
 computerSelection = "1"
 humanSelection = "2"
 playerOptions = (computerSelection, humanSelection)
-playAgain = "yes"
+playAgain = "Y"
 
 start = do
   uiGreet 

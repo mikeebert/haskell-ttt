@@ -37,7 +37,7 @@ uiAskToPlayAgain = do
             "Please answer (Y) or (N):")
   input <- getLine
   if input == "Y" || input == "N"
-    then return "yes"
+    then return input
     else uiAskToPlayAgain
 
 uiDisplayGoodbye = putStrLn "Thanks for playing."
