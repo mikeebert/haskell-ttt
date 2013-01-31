@@ -14,16 +14,17 @@ middlePosition  = "5"
 
 firstAvailableMove list = head list
 
+{-Uses hard logic for first moves to speed game play. However, Minimax does work for these moves. -}
 getAiMove :: [String] -> Player -> Player -> String
 getAiMove board player opponent  
   | board == emptyBoard      = firstCorner
   | followsOpeningMove board = middlePosition
-  | otherwise = bestMove valuesOfMoves
+  | otherwise = bestMoveFrom valuesAndMoves
                   where maxPlayer = setupMax (piece player)
                         minPlayer = setupMin (piece opponent)
                         scores = map (minimaxScore maxPlayer minPlayer 1) (potentialMoves maxPlayer board)
                         moves = availableSpaces board
-                        valuesOfMoves = zip scores moves
+                        valuesAndMoves = zip scores moves
 
 minimaxScore :: MinimaxPlayer -> MinimaxPlayer -> Integer -> [String] -> Integer
 minimaxScore player opponent depth board = 
@@ -40,8 +41,8 @@ bestScore player scores
   | strategy player == maxStrategy = maximum scores
   | strategy player == minStrategy = minimum scores
 
-bestMove :: [(Integer, String)] -> String
-bestMove scoresMoves = moveFor bestScore scoresMoves
+bestMoveFrom :: [(Integer, String)] -> String
+bestMoveFrom scoresMoves = moveFor bestScore scoresMoves
                        where bestScore = maximum (fst (unzip scoresMoves))
 
 moveFor :: Integer -> [(Integer, String)] -> String
