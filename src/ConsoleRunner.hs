@@ -8,8 +8,8 @@ import Data.List
 
 x = "X"
 o = "O"
-first = "first"
-second = "second"
+first = "1"
+second = "2"
 computerSelection = "1"
 humanSelection = "2"
 playerOptions = (computerSelection, humanSelection)
@@ -17,6 +17,10 @@ playAgain = "y"
 
 start = do
   uiGreet 
+  uiDisplayOptionMessage
+  setupPlayersAndBeginLoop
+
+setupPlayersAndBeginLoop = do
   player1type <- uiGetPlayer first x playerOptions
   player2type <- uiGetPlayer second o playerOptions
   let player1 = setupPlayer x (selectionFor player1type) 
@@ -53,7 +57,7 @@ endOfGameScenario board = do
 askToPlayAgain = do 
   choice <- uiAskToPlayAgain
   if choice == playAgain
-    then start
+    then setupPlayersAndBeginLoop
     else uiDisplayGoodbye
 
 gameOver board = full board || hasWinner board 

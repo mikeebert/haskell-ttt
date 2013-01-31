@@ -2,12 +2,14 @@ module ConsoleUi where
 
 uiGreet = do
   putStrLn ("+++++++++++++++++++++++++" ++
-            "\nWelcome to Tic Tac Toe!\n\n" ++ 
-            "In this game you have the option of playing Human vs. Human,\n" ++
+            "\nWelcome to Tic Tac Toe!")
+
+uiDisplayOptionMessage = do
+  putStrLn ("In this game you have the option of playing Human vs. Human,\n" ++
             "Human vs. Computer, or watching two Computer players duke it out.\n")
 
 uiGetPlayer number piece (computerChoice, humanChoice) = do
-  putStrLn ("Would you like the " ++ number ++ " player (" ++ piece ++ ") to be a Computer or a Human?")
+  putStrLn ("Would you like player " ++ number ++ " (" ++ piece ++ ") to be a Computer or a Human?")
   putStrLn ("Enter " ++ computerChoice ++ " for Computer or " ++ humanChoice ++ " for Human:")
   input <- getLine
   if input == "1" || input == "2"
