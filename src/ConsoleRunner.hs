@@ -56,7 +56,7 @@ askToPlayAgain = do
     then start
     else uiDisplayGoodbye
 
-gameOver board = hasWinner board || full board 
+gameOver board = full board || hasWinner board 
 
 selectionFor input | input == computerSelection = computer
                    | input == humanSelection = human
