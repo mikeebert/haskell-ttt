@@ -7,7 +7,7 @@ uiGreet = do
             "Human vs. Computer, or watching two Computer players duke it out.\n")
 
 uiGetPlayer number piece (computer, human) = do
-  putStrLn ("Would you like the " ++ number ++ " player (" ++ piece ++ ") to be Human or Computer?")
+  putStrLn ("Would you like the " ++ number ++ " player (" ++ piece ++ ") to be a Computer or a Human?")
   putStrLn ("Enter " ++ computer ++ " for Computer or " ++ human ++ " for Human:")
   input <- getLine
   if input == "1" || input == "2"
@@ -25,7 +25,7 @@ uiDisplayBoard board =  do
   putStrLn (board ++ "=======")
 
 uiDisplayComputerMoveMessage = do
-  putStrLn "\nComputer move...\n"
+  putStrLn "\nComputer move:"
 
 uiGameOverMessage winner = do
   if null winner

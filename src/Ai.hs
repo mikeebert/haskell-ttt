@@ -10,14 +10,14 @@ tieGameScore    = 0
 depthLimit      = 5
 depthLimitScore = -5
 firstCorner     = "1"
-middleSpot      = "5"
+middlePosition  = "5"
 
 firstAvailableMove list = head list
 
 getAiMove :: [String] -> Player -> Player -> String
 getAiMove board player opponent  
   | length (availableSpaces board) == (length emptyBoard)     = firstCorner
-  | length (availableSpaces board) == (length emptyBoard) - 1 = middleSpot
+  | length (availableSpaces board) == (length emptyBoard) - 1 = middlePosition
   | otherwise = bestMove valuesOfMoves
                   where maxPlayer = setupMax (piece player)
                         minPlayer = setupMin (piece opponent)
