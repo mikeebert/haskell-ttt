@@ -11,9 +11,11 @@ spec :: Spec
 spec = do
   describe "MinimaxPlayer" $ do
     it "sets up Max player" $ do
-      strategy (setupMax "x") `shouldBe` "max"
-      symbol (setupMax "x") `shouldBe` "x"
+      let maxPlayer = setupMax "x"
+      strategy maxPlayer `shouldBe` "max"
+      symbol maxPlayer `shouldBe` "x"
 
     it "sets up Min player" $ do
-      strategy (setupMin "x") `shouldBe` "min"
-      symbol (setupMin "x") `shouldBe` "x"
+      let minPlayer = setupMin "x"
+      strategy minPlayer `shouldBe` "min"
+      symbol minPlayer `shouldBe` "x"
