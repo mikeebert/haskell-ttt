@@ -62,7 +62,7 @@ selectionFor input | input == computerSelection = computer
                    | input == humanSelection = human
 
 formatted :: [String] -> String
-formatted board = let rowsAsString = map concat (rows board)
-                  in unlines (map (intersperse ' ') rowsAsString)
+formatted board = let rowsAsSingleString = map concat (rows board)
+                  in unlines (map (intersperse ' ') rowsAsSingleString)
 
 

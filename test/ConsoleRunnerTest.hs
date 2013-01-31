@@ -4,7 +4,9 @@ import Test.Hspec
 import Test.QuickCheck
 import ConsoleRunner
 
-blankBoard = ["1","2","3","4","5","6","7","8","9"]
+blankBoard = ["1","2","3",
+              "4","5","6",
+              "7","8","9"]
 
 main :: IO ()
 main = hspec spec
@@ -19,10 +21,11 @@ spec = do
      gameOver blankBoard `shouldBe` False
 
    it "game is over if a player has won" $ do
-     gameOver ["x","x","x","4","5","6","7","8","9"] `shouldBe` True
+     gameOver ["x","x","x",
+               "4","5","6",
+               "7","8","9"] `shouldBe` True
 
    it "game is over if a tie game" $ do
-     gameOver ["x","o","x","o","x","o","x","o","x"] `shouldBe` True
-
-   it "converts a board into a string for display" $ do
-     formatted blankBoard `shouldBe` "1 2 3\n4 5 6\n7 8 9\n"
+     gameOver ["x","o","x",
+               "o","x","o",
+               "x","o","x"] `shouldBe` True

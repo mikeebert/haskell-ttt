@@ -2,7 +2,7 @@
 
 1. Download and install [the Haskell
    Platform](http://www.haskell.org/platform/) if you don't have it yet.
-2. Download, clone or unzip the source code. 
+2. Download, clone or unzip the tic-tac-toe source code. 
 
 ###Play Game
 - `cd` into the project directory and type the following command in your terminal: 

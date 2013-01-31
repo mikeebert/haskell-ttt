@@ -4,7 +4,9 @@ import Prelude
 import Data.List
 import Data.Char
 
-emptyBoard = ["1","2","3","4","5","6","7","8","9"]
+emptyBoard = ["1","2","3",
+              "4","5","6",
+              "7","8","9"]
 
 availableSpaces board = filter isAvailable board
 

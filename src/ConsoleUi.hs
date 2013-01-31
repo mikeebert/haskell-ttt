@@ -6,13 +6,13 @@ uiGreet = do
             "In this game you have the option of playing Human vs. Human,\n" ++
             "Human vs. Computer, or watching two Computer players duke it out.\n")
 
-uiGetPlayer number piece (computer, human) = do
+uiGetPlayer number piece (computerChoice, humanChoice) = do
   putStrLn ("Would you like the " ++ number ++ " player (" ++ piece ++ ") to be a Computer or a Human?")
-  putStrLn ("Enter " ++ computer ++ " for Computer or " ++ human ++ " for Human:")
+  putStrLn ("Enter " ++ computerChoice ++ " for Computer or " ++ humanChoice ++ " for Human:")
   input <- getLine
   if input == "1" || input == "2"
     then return input
-    else uiGetPlayer number piece (computer, human)
+    else uiGetPlayer number piece (computerChoice, humanChoice)
 
 uiGetMove availableMoves = do
   putStrLn "Please select your move: "
