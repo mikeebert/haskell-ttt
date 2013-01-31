@@ -5,6 +5,7 @@ import Test.QuickCheck
 import Player
 import Board
 import Ai
+import MinimaxPlayer
 
 main :: IO ()
 main = hspec spec
@@ -58,11 +59,16 @@ spec = do
     it "scores a tie game as 0" $ do
       minimaxScore maxXplayer minOplayer 8 drawGameBoard `shouldBe` 0
 
-    it "scores a negative score if winning move left open for opponent" $ do
-      minimaxScore maxXplayer minOplayer 1 ["o","o","3","x","x","o","x","o","x"] `shouldBe` -98
+    it "scores a loss if winning move left open for opponent" $ do
+      minimaxScore maxXplayer minOplayer 1 ["o","o","3","x","x","o","x","o","x"] 
+        `shouldBe` -98
 
     it "chooses a win in one move" $ do
       getAiMove ["x","x","3","4","5","6","7","8","9"] xPlayer oPlayer 
+        `shouldBe` "3"
+
+    it "block the opponent's win in one move" $ do
+      getAiMove ["o","o","3","4","5","6","7","8","9"] xPlayer oPlayer 
         `shouldBe` "3"
 
     it "chooses the center for second move if opponent chooses corner" $ do
