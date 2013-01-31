@@ -23,3 +23,6 @@ spec = do
 
    it "game is over if a tie game" $ do
      gameOver ["x","o","x","o","x","o","x","o","x"] `shouldBe` True
+
+   it "converts a board into a string for display" $ do
+     formatted blankBoard `shouldBe` "1 2 3\n4 5 6\n7 8 9\n"

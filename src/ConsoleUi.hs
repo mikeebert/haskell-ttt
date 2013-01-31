@@ -22,10 +22,10 @@ uiGetMove availableMoves = do
     else uiGetMove availableMoves
 
 uiDisplayBoard board =  do
-  putStrLn ("=======\n" ++ board ++ "=======\n")
+  putStrLn (board ++ "=======")
 
 uiDisplayComputerMoveMessage = do
-  putStrLn "Computer move..."
+  putStrLn "\nComputer move...\n"
 
 uiGameOverMessage winner = do
   if null winner
@@ -34,9 +34,9 @@ uiGameOverMessage winner = do
 
 uiAskToPlayAgain = do
   putStrLn ("Would you like to play again?\n" ++
-            "Please answer (Y) or (N):")
+            "Please answer (y) or (n):")
   input <- getLine
-  if input == "Y" || input == "N"
+  if input == "y" || input == "n"
     then return input
     else uiAskToPlayAgain
 
