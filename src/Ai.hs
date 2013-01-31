@@ -9,17 +9,21 @@ inProgressScore = -1
 tieGameScore    = 0
 depthLimit      = 5
 depthLimitScore = -5
+firstCorner     = "1"
+middleSpot      = "5"
 
 firstAvailableMove list = head list
 
 getAiMove :: [String] -> Player -> Player -> String
-getAiMove board player opponent = 
-  bestMove valuesOfMoves
-  where maxPlayer = setupMax (piece player)
-        minPlayer = setupMin (piece opponent)
-        scores = map (minimaxScore maxPlayer minPlayer 1) (potentialMoves maxPlayer board)
-        moves = availableSpaces board
-        valuesOfMoves = zip scores moves
+getAiMove board player opponent  
+  | length (availableSpaces board) == (length emptyBoard)     = firstCorner
+  | length (availableSpaces board) == (length emptyBoard) - 1 = middleSpot
+  | otherwise = bestMove valuesOfMoves
+                  where maxPlayer = setupMax (piece player)
+                        minPlayer = setupMin (piece opponent)
+                        scores = map (minimaxScore maxPlayer minPlayer 1) (potentialMoves maxPlayer board)
+                        moves = availableSpaces board
+                        valuesOfMoves = zip scores moves
 
 minimaxScore :: MinimaxPlayer -> MinimaxPlayer -> Integer -> [String] -> Integer
 minimaxScore player opponent depth board = 
