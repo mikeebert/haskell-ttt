@@ -65,6 +65,20 @@ spec = do
                                                 "x","x","o",
                                                 "x","o","x"] `shouldBe` -98
 
+    it "chooses a corner for the opening move" $ do
+      moveIsInList (getAiMove emptyBoard xPlayer oPlayer) ["1","3","7","9"] `shouldBe` True
+
+    it "chooses the center following an opening corner move" $ do
+      getAiMove ["x","2","3",
+                 "4","5","6",
+                 "7","8","9"] xPlayer oPlayer `shouldBe` "5"
+
+    it "chooses a corner following an opening center move" $ do
+      moveIsInList (getAiMove ["1","2","3",
+                               "4","o","6",
+                               "7","8","9"] xPlayer oPlayer)
+                   ["1","3","7","9"] `shouldBe` True
+
     it "chooses a win in one move" $ do
       getAiMove ["x","x","3",
                  "4","5","6",
@@ -75,13 +89,6 @@ spec = do
                  "4","5","6",
                  "7","8","9"] xPlayer oPlayer `shouldBe` "3"
 
-    it "chooses the center for second move if opponent chooses corner" $ do
-      getAiMove ["o","2","3",
-                 "4","5","6",
-                 "7","8","9"] xPlayer oPlayer `shouldBe` "5"
-
-    it "chooses a corner for the opening move" $ do
-      moveIsInList (getAiMove emptyBoard xPlayer oPlayer) ["1","3","7","9"] `shouldBe` True
 
     it "blocks L setup" $ do
       moveIsInList (getAiMove ["o","2","3",

@@ -18,7 +18,7 @@ firstAvailableMove list = head list
 getAiMove :: [String] -> Player -> Player -> String
 getAiMove board player opponent  
   | board == emptyBoard      = firstCorner
-  | followsOpeningMove board = middlePosition
+  | followsOpeningMove board = bestSecondMove board
   | otherwise = bestMoveFrom valuesAndMoves
                   where maxPlayer = setupMax (piece player)
                         minPlayer = setupMin (piece opponent)
@@ -65,3 +65,9 @@ makeMove :: [String] -> String -> String -> [String]
 makeMove board symbol space = placeMove (space, symbol) board
 
 followsOpeningMove board = length (availableSpaces board) == (length emptyBoard) - 1 
+
+bestSecondMove board = if middlePositionIsOpen board
+                         then middlePosition
+                         else firstCorner
+
+middlePositionIsOpen board = any (== middlePosition) board
